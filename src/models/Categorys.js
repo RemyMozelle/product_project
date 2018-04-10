@@ -13,4 +13,5 @@ const modelCategory = (sequelize, DataTypes) =>
     }
   });
 
+modelCategory.belongsTo(modelCategory);
 export default modelCategory;

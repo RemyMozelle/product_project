@@ -1,10 +1,11 @@
 import Sequelize from "sequelize";
 
 const createSequelize = () => {
-  const sequelize = new Sequelize("product_projet", "root", "root", {
+  const sequelize = new Sequelize("product_project", "root", "root", {
     host: "localhost",
     dialect: "mysql",
     operatorsAliases: false,
+    port: 8889,
 
     pool: {
       max: 5,
@@ -13,6 +14,14 @@ const createSequelize = () => {
       idle: 10000
     }
   });
+  sequelize
+    .authenticate()
+    .then(() => {
+      console.log("Connection has been established successfully.");
+    })
+    .catch(err => {
+      console.error("Unable to connect to the database:", err);
+    });
   return sequelize;
 };
 

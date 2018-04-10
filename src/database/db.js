@@ -1,7 +1,7 @@
 import Sequelize from "sequelize";
 
 const createSequelize = () => {
-  const sequelize = new Sequelize("product_projet", "root", "root", {
+  const sequelize = new Sequelize("product_project", "root", "robin", {
     host: "localhost",
     dialect: "mysql",
     operatorsAliases: false,

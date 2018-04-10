@@ -1,0 +1,13 @@
+{
+    // Nombre d'espaces correspondant à une tabulation. Ce paramètre est remplacé en fonction du contenu du fichier quand 'editor.detectIndentation' est activé.
+    "editor.tabSize": 2,
+    // Des espaces sont insérés quand vous appuyez sur la touche Tab. Ce paramètre est remplacé en fonction du contenu du fichier quand 'editor.detectIndentation' est activé.
+    "editor.insertSpaces": true,
+    // Disable regular VSCode Javascript lint
+    "javascript.validate.enable": false,
+    "eslint.enable": true,
+    "eslint.autoFixOnSave": true,
+    // Traces the communication between VSCode and the eslint linter service.
+    "eslint.trace.server": "off",
+    "workbench.iconTheme": "vscode-icons"
+}

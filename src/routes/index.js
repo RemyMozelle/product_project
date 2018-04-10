@@ -6,4 +6,4 @@ route.get("/", (req, res) => {
   res.send("Hello BIG");
 });
 
-module.exports = route;
+export default route;

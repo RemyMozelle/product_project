@@ -1,14 +1,8 @@
 import express from "express";
-import createSequelize from "./database/db";
-import modelProduct from "./models/Products";
-
-const sequelize = createSequelize();
-const Products = sequelize.import("products", modelProduct);
+import index from "./routes/index";
 
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("Hello BIG");
-});
+app.use("/", index);
 
 app.listen(3001);

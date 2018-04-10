@@ -7,14 +7,9 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `product_project` DEFAULT CHARACTER SET utf8 ;
 USE `product_project` ;
--- -----------------------------------------------------
--- Table `product_project`.`USER`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `product_project`.`USER` (
-  `id` INT NOT NULL,
+
   `phone` TINYINT NOT NULL,
   `email` VARCHAR(150) NOT NULL,
-  `firstName` VARCHAR(200) NOT NULL,
   `lastName` VARCHAR(200) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -36,9 +31,9 @@ ENGINE = InnoDB;
 -- Table `product_project`.`CATEGORY`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `product_project`.`CATEGORY` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(150) NOT NULL,
+  `isActive` TINYINT(1) NULL DEFAULT '',
   `isActive` TINYINT(1) NOT NULL DEFAULT 0,
+>>>>>>> 31c5e73869d1dd73ff2f40a6f0d2ab53ac46e2f9
   `parent_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_CATEGORY_CATEGORY1_idx` (`parent_id` ASC),

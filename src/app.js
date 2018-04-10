@@ -1,15 +1,11 @@
 import express from "express";
+import index from "./routes/index";
 import createSequelize from "./database/db";
-import modelProduct from "./models/Products";
 
 const sequelize = createSequelize();
-const Products = sequelize.import("products", modelProduct);
-
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("Hello BIG");
-});
+app.use("/", index);
 
 sequelize
   .authenticate()

@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
-
-module.exports = (app, Products) => {
+module.exports = (app, Products, sequelize) => {
   app.get("/products/list", (req, res) => {
     Products.findAll().then(product => {
       res.json({ product });
@@ -15,6 +14,22 @@ module.exports = (app, Products) => {
     };
     Products.create(product).then(response => {
       res.json({ validation: `Categorie bien ajouté ${response}` });
+    });
+  });
+
+  app.get("/products/list/descending", (req, res) => {
+    Products.findAll({
+      order: [["price", "DESC"]]
+    }).then(product => {
+      res.json({ product });
+    });
+  });
+
+  app.get("/products/list/ascending", (req, res) => {
+    Products.findAll({
+      order: sequelize.col("price")
+    }).then(product => {
+      res.json({ product });
     });
   });
 };

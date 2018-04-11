@@ -6,7 +6,6 @@ import createSequelize from "./database/db";
 import ModelProducts from "./models/Products";
 import ModelCategories from "./models/Categories";
 import products from "./routes/products";
-// import categories from "./routes/categories";
 
 const app = express();
 app.use(bodyParser.json({ extended: false }));
@@ -17,7 +16,5 @@ const Category = sequelize.import("categories", ModelCategories);
 // RELATIONSHIP
 Category.hasMany(Product, { foreignKey: "categories_id" });
 
-products(app, Product);
-// categories(app, Category);
-
+products(app, Product, sequelize);
 app.listen(3001);

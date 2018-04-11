@@ -1,22 +1,15 @@
 const modelCategory = (sequelize, DataTypes) =>
-  sequelize.define(
-    "categories",
-    {
-      categoryId: {
-        type: DataTypes.INTEGER
-      },
-      name: {
-        type: DataTypes.STRING
-      },
-
-      isActive: {
-        type: DataTypes.BOOLEAN
-      }
+  sequelize.define("categories", {
+    categoryId: {
+      type: DataTypes.INTEGER
     },
-    {
-      freezeTableName: true,
-      timestamps: false
+    name: {
+      type: DataTypes.STRING
+    },
+
+    isActive: {
+      type: DataTypes.BOOLEAN
     }
-  );
+  });
 
 export default modelCategory;

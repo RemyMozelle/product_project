@@ -18,14 +18,14 @@ module.exports = (app, Category) => {
     });
   });
   // CREER UNE CATEGORIE
-  app.get("/categories_create", (req, res) => {
+  app.post("/categories_create", (req, res) => {
     const category = {
       name: req.body.name,
       categoryId: req.body.category,
       isActive: req.body.active
     };
-    Category.create({ category }).then(response => {
-      res.json({ validation: `Categorie bien ajouté ${response}` });
+    Category.create(category).then(response => {
+      res.json({ response });
     });
   });
 };

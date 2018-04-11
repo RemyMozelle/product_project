@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+/* eslint-disable camelcase */
+
 import express from "express";
 import bodyParser from "body-parser";
 import categories from "./routes/categories";
@@ -8,14 +11,15 @@ import modelProduct from "./models/Products";
 
 const sequelize = createSequelize();
 const Category = sequelize.import("categories", modelCategory);
-const Products = sequelize.import("products", modelProduct);
-
-// RELATIONSHIP
-Category.belongsTo(Category);
+const Product = sequelize.import("products", modelProduct);
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 
-products(app, Products);
+// RELATIONSHIP
+Category.hasMany(Product, { foreignKey: "categories_id" });
+Category.belongsTo(Category, { foreignKey: "categoryId" });
+
+products(app, Product);
 categories(app, Category);
 app.listen(3001);

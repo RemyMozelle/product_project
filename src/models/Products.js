@@ -1,12 +1,17 @@
-const modelProduct = (sequelize, DataTypes) =>
-  sequelize.define("products", {
-    name: {
-      type: DataTypes.STRING
+// import modelCategory from "./Category";
+
+const ModelProducts = (sequelize, DataTypes) =>
+  sequelize.define(
+    "products",
+    {
+      name: {
+        type: DataTypes.STRING
+      },
+      price: {
+        type: DataTypes.INTEGER
+      }
     },
+    { freezeTableName: true }
+  );
 
-    description: {
-      type: DataTypes.TEXT
-    }
-  });
-
-export default modelProduct;
+export default ModelProducts;

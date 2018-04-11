@@ -9,6 +9,7 @@ module.exports = (app, Product, Category) => {
       res.json({ validation: `Produit bien ajouté ${response}` });
     });
   });
+
   app.get("/products/category/:alias", (req, res) => {
     Category.findOne({ where: { name: req.params.alias } }).then(category => {
       console.log(category.id);
@@ -19,11 +20,7 @@ module.exports = (app, Product, Category) => {
       );
     });
   });
-  app.get("/product_by_category", (req, res) => {
-    Product.findAll({ where: { categories_id: 2 } }).then(products => {
-      res.json({ products });
-    });
-  });
+
   app.get("/products_display", (req, res) => {
     Product.findAll().then(products => {
       res.json({ products });

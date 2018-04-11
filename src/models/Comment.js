@@ -1,7 +1,7 @@
 const modelComment = (sequelize, DataTypes) =>
   sequelize.define("comments", {
     date: {
-      type: DataTypes.INTEGER
+      type: DataTypes.DATE
     },
     message: {
       type: DataTypes.INTEGER

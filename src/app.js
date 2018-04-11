@@ -8,7 +8,7 @@ import modelComment from "./models/Comment";
 // ROUTES
 import categories from "./routes/categories";
 import products from "./routes/products";
-import comments from './routes/comments'
+import comments from './routes/comments';
 // SEQUELIZE
 const sequelize = createSequelize();
 // IMPORT MODELS
@@ -17,11 +17,14 @@ const Products = sequelize.import("products", modelProduct);
 const Comments = sequelize.import("comments", modelComment); 
 // RELATIONSHIP
 Category.belongsTo(Category);
+Comments.hasMany(Products);
 
 const app = express();
+
 app.use(bodyParser.json());
 
 products(app, Products);
 categories(app, Category);
 comments(app, Comments);
+
 app.listen(3001);

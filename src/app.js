@@ -1,13 +1,26 @@
+/* eslint-disable no-console */
+/* eslint-disable camelcase */
+
 import express from "express";
-import index from "./routes/index";
 import createSequelize from "./database/db";
 import ModelProducts from "./models/Products";
+import ModelCategories from "./models/Categories";
+import products from "./routes/products";
+// import categories from "./routes/categories";
 
-const sequelize = createSequelize();
 const app = express();
-const Product = sequelize.import("PRODUCT", ModelProducts);
+const sequelize = createSequelize();
+const Product = sequelize.import("products", ModelProducts);
+const Category = sequelize.import("categories", ModelCategories);
 
-app.use("/", index);
+// RELATIONSHIP
+Category.hasMany(Product, { foreignKey: "categories_id" });
+
+products(app, Product);
+// categories(app, Category);
+
+app.listen(3001);
+/* app.use("/", index);
 
 sequelize
   .authenticate()
@@ -18,10 +31,25 @@ sequelize
     console.error("Unable to connect to the database:", err);
   });
 
-Product.sync().then(() =>
-  Product.create({
-    name: "bobi",
-    price: 2222222
-  })
-);
-app.listen(3001);
+const createProduct = (name, price, categories_id) => {
+  Product.sync().then(() =>
+    Product.create({
+      name,
+      price,
+      categories_id
+    })
+  );
+};
+
+const createCategory = (name, isActive, categoryId) => {
+  Category.sync().then(() => {
+    Category.create({
+      name,
+      isActive,
+      categoryId
+    });
+  });
+};
+
+// createCategory("Catégorie Collier", 0, 1);
+// createProduct("Collier en dimant", 100000, 1); */

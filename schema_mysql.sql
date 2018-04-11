@@ -52,7 +52,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `product_project`.`categories` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(150) NOT NULL,
-  `isActive` TINYINT(1) NULL DEFAULT '',
+  `isActive` TINYINT(1) NULL DEFAULT 0,
   `parent_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_CATEGORY_CATEGORY1_idx` (`parent_id` ASC),

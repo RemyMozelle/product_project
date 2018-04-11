@@ -1,34 +1,20 @@
 /* eslint-disable camelcase */
 
 module.exports = (app, Products) => {
-  app.post("/products/create", (req, res) => {
-    Products.sync().then(() =>
-      Products.create({
-        name: req.body.name,
-        price: req.body.price,
-        categories_id: req.body.categories_id
-      }).then(response => {
-        res.json("GG `${response}`");
-      })
-    );
+  app.get("/products/list", (req, res) => {
+    Products.findAll().then(product => {
+      res.json({ product });
+    });
   });
 
-  /* app.post("/products/create", req => {
+  app.post("/products/create", (req, res) => {
     const product = {
       name: req.body.name,
       price: req.body.price,
       categories_id: req.body.categories_id
     };
-    Products.sync().then(() => {
-      Products.create({
-        product
-      });
-    });
-  }); */
-
-  app.get("/products/list", (req, res) => {
-    Products.findAll().then(product => {
-      res.json({ product });
+    Products.create(product).then(response => {
+      res.json({ validation: `Categorie bien ajouté ${response}` });
     });
   });
 };

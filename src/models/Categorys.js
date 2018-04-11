@@ -1,17 +1,15 @@
 const modelCategory = (sequelize, DataTypes) =>
-  sequelize.define("categorys", {
-    name: {
-      type: DataTypes.STRING
+  sequelize.define(
+    "categorys",
+    {
+      name: DataTypes.STRING,
+      type: DataTypes.TEXT,
+      IsAtive: DataTypes.BOOLEAN
     },
-
-    description: {
-      type: DataTypes.TEXT
-    },
-
-    isActive: {
-      type: DataTypes.BOOLEAN
+    {
+      timestamps: false
     }
-  });
+  );
 
-modelCategory.belongsTo(modelCategory);
+// modelCategory.belongsTo(modelCategory);
 export default modelCategory;

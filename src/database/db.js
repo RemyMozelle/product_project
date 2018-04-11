@@ -5,6 +5,9 @@ const createSequelize = () => {
     host: "localhost",
     dialect: "mysql",
     operatorsAliases: false,
+    define: {
+      timestamps: false
+    },
 
     pool: {
       max: 5,

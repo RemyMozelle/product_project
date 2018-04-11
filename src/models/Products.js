@@ -1,15 +1,19 @@
 // import modelCategory from "./Category";
 
-const modelProduct = (sequelize, DataTypes) =>
-  sequelize.define("products", {
-    name: {
-      type: DataTypes.STRING
+const ModelProducts = (sequelize, DataTypes) =>
+  sequelize.define(
+    "PRODUCT",
+    {
+      name: {
+        type: DataTypes.STRING
+      },
+      price: {
+        type: DataTypes.INTEGER
+      }
     },
-    price: {
-      type: DataTypes.INTEGER
-    }
-  });
+    { freezeTableName: true }
+  );
 
-// modelProduct.hasOne(modelCategory, { foreignKey: "CATEGORYid" });
+/* modelProduct.hasOne(modelCategory, { foreignKey: "CATEGORYid" }); */
 
-export default modelProduct;
+export default ModelProducts;

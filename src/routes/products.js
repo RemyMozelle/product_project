@@ -1,5 +1,11 @@
 module.exports = (app, Product, Category) => {
-  app.get("/products/create", (req, res) => {
+  app.get("/products/list", (req, res) => {
+    Product.findAll().then(product => {
+      res.json({ product });
+    });
+  });
+
+  app.post("/products/create", (req, res) => {
     const product = {
       name: req.body.name,
       price: req.body.price,
@@ -12,7 +18,6 @@ module.exports = (app, Product, Category) => {
 
   app.get("/products/category/:alias", (req, res) => {
     Category.findOne({ where: { name: req.params.alias } }).then(category => {
-      console.log(category.id);
       Product.findAll({ where: { categories_id: category.id } }).then(
         products => {
           res.json({ products, category });

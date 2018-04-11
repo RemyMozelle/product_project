@@ -5,7 +5,10 @@ const createSequelize = () => {
     host: "localhost",
     dialect: "mysql",
     operatorsAliases: false,
-    port: 8889,
+    define: {
+      timestamps: false,
+      freezeTableName: true
+    },
 
     pool: {
       max: 5,

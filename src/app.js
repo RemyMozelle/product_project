@@ -14,12 +14,13 @@ const Category = sequelize.import("categories", modelCategory);
 const Product = sequelize.import("products", modelProduct);
 
 const app = express();
-app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(bodyParser.json());
 
 // RELATIONSHIP
 Category.hasMany(Product, { foreignKey: "categories_id" });
-Category.belongsTo(Category, { foreignKey: "categoryId" });
+Category.hasMany(Category, { foreignKey: "categoryId" });
 
-products(app, Product);
+products(app, Product, Category);
 categories(app, Category);
 app.listen(3001);

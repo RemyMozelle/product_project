@@ -44,7 +44,7 @@ module.exports = (app, Products, sequelize, Category) => {
   });
 
   /**
-   * Display all ropducts from a particular category
+   * Display all products from a particular category
    */
   app.get("/category/:alias/products", (req, res) => {
     Category.findOne({ where: { id: req.params.alias } }).then(category => {

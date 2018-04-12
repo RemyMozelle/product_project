@@ -1,4 +1,6 @@
 /* eslint-disable camelcase */
+/* eslint-disable no-console */
+
 module.exports = (app, Products, sequelize, Category) => {
   /**
    * Display all products
@@ -13,12 +15,13 @@ module.exports = (app, Products, sequelize, Category) => {
    * Create a product
    */
   app.post("/products", (req, res) => {
+    console.log("req.body : ", req.body);
     const product = {
       name: req.body.name,
       price: req.body.price,
       categories_id: req.body.categories_id
     };
-    Products.create({ product }).then(response => {
+    Products.create(product).then(response => {
       res.json({ validation: `Produit bien ajouté ${response}` });
     });
   });

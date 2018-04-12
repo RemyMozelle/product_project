@@ -34,3 +34,5 @@ DELETE FROM `comments` WHERE `userId` = '1'
 
 -- // SHOW ALL USERS
 SELECT `id`, `phone`, `email`, `firstName`, `lastName` FROM `users` AS `users`;
+-- // INSERT 1 USER
+INSERT INTO `users` (`id`,`phone`,`email`,`firstName`,`lastName`) VALUES (DEFAULT,408191919,'roberto@gmail.com','jeanbob','maurane');

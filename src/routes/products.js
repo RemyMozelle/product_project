@@ -1,7 +1,3 @@
-/* eslint-disable camelcase */
-/* eslint-disable no-console */
-/* eslint-disable no-cond-assign */
-
 module.exports = (app, Products, sequelize, Category) => {
   /**
    * Display all products

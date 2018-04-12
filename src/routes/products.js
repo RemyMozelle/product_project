@@ -1,4 +1,4 @@
-module.exports = (app, Products, sequelize, Category) => {
+module.exports = (app, Products, sequelize, Categories) => {
   /**
    * Display all products
    * Sort products by descending price
@@ -28,14 +28,13 @@ module.exports = (app, Products, sequelize, Category) => {
    * Create a product
    */
   app.post("/products", (req, res) => {
-    console.log("req.body : ", req.body);
     const product = {
       name: req.body.name,
       price: req.body.price,
-      categories_id: req.body.categories_id
+      categoryId: req.body.categories_id
     };
     Products.create(product).then(response => {
-      res.json({ validation: `Produit bien ajouté ${response}` });
+      res.json({ response });
     });
   });
 
@@ -43,12 +42,17 @@ module.exports = (app, Products, sequelize, Category) => {
    * Display all products from a particular category
    */
   app.get("/category/:alias/products", (req, res) => {
-    Category.findOne({ where: { id: req.params.alias } }).then(category => {
-      Products.findAll({ where: { categories_id: category.id } }).then(
-        products => {
-          res.json({ products, category });
+    Products.findAll({
+      include: [
+        {
+          model: Categories,
+          where: {
+            name: req.params.alias
+          }
         }
-      );
+      ]
+    }).then(products => {
+      res.json({ products });
     });
   });
 
@@ -56,13 +60,18 @@ module.exports = (app, Products, sequelize, Category) => {
    * Display sorted price products from a particular category by ascending
    */
   app.get("/products/sortpriceincategoryascending/:alias", (req, res) => {
-    Category.findOne({ where: { id: req.params.alias } }).then(category => {
-      Products.findAll({
-        order: sequelize.col("price"),
-        where: { categories_id: category.id }
-      }).then(products => {
-        res.json({ products, category });
-      });
+    Products.findAll({
+      order: sequelize.col("price"),
+      include: [
+        {
+          model: Categories,
+          where: {
+            name: req.params.alias
+          }
+        }
+      ]
+    }).then(products => {
+      res.json({ products });
     });
   });
 };

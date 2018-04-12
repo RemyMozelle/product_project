@@ -12,3 +12,13 @@
    -- Display sorted by ascending price product from a particular category
    SELECT `id`, `name`, `price`, `categories_id` FROM `products` AS `products` WHERE `products`.`categories_id` = 1 ORDER BY `price`;
 
+
+
+
+    SELECT `id`, `categoryId`, `name`, `isActive` FROM `categories` AS `categories`;
+
+SELECT `id`, `categoryId`, `name`, `isActive` FROM `categories` AS `categories` WHERE `categories`.`isActive` = 0;
+
+SELECT `id`, `categoryId`, `name`, `isActive` FROM `categories` AS `categories` WHERE `categories`.`isActive` = 1;
+
+INSERT INTO `categories` (`id`,`categoryId`,`name`,`isActive`) VALUES (DEFAULT,1,'Casserole',true);

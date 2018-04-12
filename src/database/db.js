@@ -1,8 +1,9 @@
 import Sequelize from "sequelize";
 
-const createSequelize = () => {
-  const sequelize = new Sequelize("product_project", "root", "robin", {
-    host: "localhost",
+const createSequelize = (DATABASE, USERNAME, PASSWORD, HOST) => {
+  console.log(DATABASE, USERNAME, PASSWORD, HOST);
+  const sequelize = new Sequelize(DATABASE, USERNAME, PASSWORD, {
+    host: HOST,
     dialect: "mysql",
     operatorsAliases: false,
     define: {

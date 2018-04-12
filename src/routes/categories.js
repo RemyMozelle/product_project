@@ -17,15 +17,14 @@ module.exports = (app, Category) => {
       res.json({ category });
     });
   });
-  // CREER UNE CATEGORIE
-
+  // CREER UNE CATEGORIEs
   app.post("/categories_create", (req, res) => {
     const category = {
       name: req.body.name,
       categoryId: req.body.category,
       isActive: req.body.active
     };
-    Category.create({ category }).then(response => {
+    Category.create(category).then(response => {
       res.json(response);
     });
   });

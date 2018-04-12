@@ -9,6 +9,9 @@ const ModelProducts = (sequelize, DataTypes) =>
       },
       price: {
         type: DataTypes.INTEGER
+      },
+      categoryId: {
+        type: DataTypes.INTEGER
       }
     },
     { freezeTableName: true }

@@ -24,7 +24,8 @@ const Users = sequelize.import("users", modelUser);
 const Cart = sequelize.import("carts", modelCart);
 // RELATIONSHIP
 Category.belongsTo(Category);
-Comments.hasMany(Products);
+Products.hasMany(Comments);
+Products.belongsTo(Category);
 
 products(app, Products, sequelize, Category);
 categories(app, Category);

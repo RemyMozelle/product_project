@@ -24,7 +24,7 @@ module.exports = (app, Category) => {
       categoryId: req.body.category,
       isActive: req.body.active
     };
-    Category.create({ category }).then(response => {
+    Category.create(category).then(response => {
       res.json(response);
     });
   });

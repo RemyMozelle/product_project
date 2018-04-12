@@ -16,40 +16,45 @@ module.exports = (app, Products, sequelize, Categories) => {
     const product = {
       name: req.body.name,
       price: req.body.price,
-      categories_id: req.body.categories_id
+      categoryId: req.body.categories_id
     };
     Products.create(product).then(response => {
       res.json({ response });
     });
   });
 
-  /**
-   * Display all products from a particular category
-   */
   app.get("/category/:alias/products", (req, res) => {
-    Categories.findOne({ where: { id: req.params.alias } }).then(category => {
-      Products.findAll({ where: { categories_id: category.id } }).then(
-        products => {
-          res.json({ products, category });
+    Products.findAll({
+      include: [
+        {
+          model: Categories,
+          where: {
+            name: req.params.alias
+          }
         }
-      );
+      ]
+    }).then(products => {
+      res.json({ products });
     });
   });
-
   /**
    * Display sorted price products from a particular category by ascending
    */
   app.get("/products/sortpriceincategoryascending/:alias", (req, res) => {
-    Categories.findOne({ where: { id: req.params.alias } }).then(category => {
-      Products.findAll({
-        order: sequelize.col("price"),
-        where: { categories_id: category.id }
-      }).then(products => {
-        res.json({ products, category });
-      });
+    Products.findAll({
+      order: sequelize.col("price"),
+      include: [
+        {
+          model: Categories,
+          where: {
+            name: req.params.alias
+          }
+        }
+      ]
+    }).then(products => {
+      res.json({ products });
     });
   });
-
   /**
    * Sort products by descending price
    */

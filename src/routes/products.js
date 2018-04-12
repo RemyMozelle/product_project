@@ -11,7 +11,6 @@ module.exports = (app, Product, Category) => {
       price: req.body.price,
       categories_id: req.body.categories_id
     };
-    console.log(req.body);
     Product.create(product).then(response => {
       res.json({ response });
     });

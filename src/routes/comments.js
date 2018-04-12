@@ -37,4 +37,12 @@ module.exports = (app, Comments) => {
       }
     }).then(deleted => res.json(deleted));
   });
+  // DELETE ALL COMMENTS FOR 1 USER
+  app.delete("/users/:id/comments", (req, res) => {
+    Comments.destroy({
+      where: {
+        users_id: req.params.id
+      }
+    }).then(deleteCommentForThisUser => res.json(deleteCommentForThisUser));
+  });
 };

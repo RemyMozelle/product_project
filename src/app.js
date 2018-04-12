@@ -6,7 +6,7 @@ import modelProduct from "./models/Products";
 import modelCart from "./models/Carts";
 import modelUser from "./models/Users";
 import modelComment from "./models/Comments";
-
+// ROUTES
 import carts from "./routes/carts";
 import products from "./routes/products";
 import categories from "./routes/categories";

@@ -2,22 +2,21 @@
 /* eslint-disable camelcase */
 import bodyParser from "body-parser";
 import express from "express";
-import categories from "./routes/categories";
-import products from "./routes/products";
 import createSequelize from "./database/db";
-import modelCategory from "./models/Categories";
-import modelProduct from "./models/Products";
+import ModelProducts from "./models/Products";
+import ModelCategories from "./models/Categories";
+import products from "./routes/products";
+import categories from "./routes/categories";
 
 const app = express();
 app.use(bodyParser.json({ extended: false }));
 const sequelize = createSequelize();
-const Category = sequelize.import("categories", modelCategory);
-const Product = sequelize.import("products", modelProduct);
+const Product = sequelize.import("products", ModelProducts);
+const Category = sequelize.import("categories", ModelCategories);
 
 // RELATIONSHIP
 Category.hasMany(Product, { foreignKey: "categories_id" });
-Category.hasMany(Category, { foreignKey: "categoryId" });
 
-products(app, Product, Category);
+products(app, Product, sequelize, Category);
 categories(app, Category);
 app.listen(3001);

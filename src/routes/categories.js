@@ -18,7 +18,8 @@ module.exports = (app, Category) => {
     });
   });
   // CREER UNE CATEGORIE
-  app.post("/categories_create", (req, res) => {
+  /* app.post("/categories_create", (req, res) => {
+    console.log("ICIIIIIIIIIIIIIIIII", req.body);
     const category = {
       name: req.body.name,
       categoryId: req.body.category,
@@ -26,6 +27,17 @@ module.exports = (app, Category) => {
     };
     Category.create(category).then(response => {
       res.json({ response });
+    });
+  }); */
+
+  app.post("/categories_create", (req, res) => {
+    const category = {
+      name: req.body.name,
+      categoryId: req.body.category,
+      isActive: req.body.active
+    };
+    Category.create({ category }).then(response => {
+      res.json(response);
     });
   });
 };

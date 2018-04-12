@@ -2,11 +2,27 @@
 module.exports = (app, Products, sequelize, Categories) => {
   /**
    * Display all products
+   * Sort products by descending price
+   * Sort products by ascending price
    */
   app.get("/products", (req, res) => {
-    Products.findAll().then(product => {
-      res.json({ product });
-    });
+    if (!req.query.sort) {
+      Products.findAll().then(product => {
+        res.json({ product });
+      });
+    } else if (req.query.sort === "-price") {
+      Products.findAll({
+        order: [["price", "DESC"]]
+      }).then(product => {
+        res.json({ product });
+      });
+    } else if (req.query.sort === "price") {
+      Products.findAll({
+        order: sequelize.col("price")
+      }).then(product => {
+        res.json({ product });
+      });
+    }
   });
 
   /**
@@ -55,9 +71,6 @@ module.exports = (app, Products, sequelize, Categories) => {
       res.json({ products });
     });
   });
-  /**
-   * Sort products by descending price
-   */
   app.get("/products/desc", (req, res) => {
     Products.findAll({
       order: [["price", "DESC"]]

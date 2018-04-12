@@ -1,5 +1,3 @@
-// import modelCategory from "./Category";
-
 const ModelProducts = (sequelize, DataTypes) =>
   sequelize.define(
     "products",

@@ -32,3 +32,5 @@ module.exports = (app, Product, Category) => {
     });
   });
 };
+
+// ////// SQL REQUETE ////////

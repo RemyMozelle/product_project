@@ -62,7 +62,7 @@ module.exports = (app, Products, sequelize, Categories) => {
   });
 
   /**
-   * Sort products by ascending price
+   * Sort products by descending price
    */
   app.get("/products/asc", (req, res) => {
     Products.findAll({

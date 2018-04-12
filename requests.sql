@@ -19,3 +19,18 @@ SELECT `id`, `categoryId`, `name`, `isActive` FROM `categories` AS `categories` 
 SELECT `id`, `categoryId`, `name`, `isActive` FROM `categories` AS `categories` WHERE `categories`.`isActive` = 1;
 
 INSERT INTO `categories` (`id`,`categoryId`,`name`,`isActive`) VALUES (DEFAULT,1,'Casserole',true);
+
+-- SHOW ALL COMMENTS PER PRODUCT
+SELECT `id`, `date`, `message`, `productId`, `userId` FROM `comments` AS `comments` WHERE `comments`.`productId` = '2'
+
+-- UPDATE A COMMENT
+UPDATE `comments` SET `date`='2018-04-11 10:03:02',`message`='nice product' WHERE `id` = '3'
+
+-- // DELETE ONE COMMENT
+DELETE FROM `comments` WHERE `id` = '26'
+
+-- // DELETE ALL COMMENTS FOR 1 USER
+DELETE FROM `comments` WHERE `userId` = '1'
+
+-- // SHOW ALL USERS
+SELECT `id`, `phone`, `email`, `firstName`, `lastName` FROM `users` AS `users`;

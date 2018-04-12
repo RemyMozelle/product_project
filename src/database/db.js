@@ -1,15 +1,16 @@
 import Sequelize from "sequelize";
 
-const createSequelize = () => {
-  const sequelize = new Sequelize("product_project", "root", "root", {
-    host: "localhost",
+const createSequelize = (DATABASE, USERNAME, PASSWORD, HOST, PORT) => {
+  console.log(DATABASE, USERNAME, PASSWORD, HOST, PORT);
+  const sequelize = new Sequelize(DATABASE, USERNAME, PASSWORD, {
+    host: HOST,
     dialect: "mysql",
     operatorsAliases: false,
     define: {
       timestamps: false,
       freezeTableName: true
     },
-
+    port: PORT,
     pool: {
       max: 5,
       min: 0,

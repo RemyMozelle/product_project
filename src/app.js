@@ -1,6 +1,8 @@
 import bodyParser from "body-parser";
 import express from "express";
+import { config } from "dotenv";
 import createSequelize from "./database/db";
+// IMPORT MODELS
 import modelCategory from "./models/Categories";
 import modelProduct from "./models/Products";
 import modelCart from "./models/Carts";
@@ -12,10 +14,16 @@ import products from "./routes/products";
 import categories from "./routes/categories";
 import comments from "./routes/comments";
 import users from "./routes/users";
-
+// DOTENV
+config();
+// GLOBAL VARIABLES
+const { USERNAME, DATABASE, HOST, PASSWORD, PORT } = process.env;
+// SERVER
 const app = express();
+// MIDDLEWARE
 app.use(bodyParser.json({ extended: false }));
-const sequelize = createSequelize();
+// SEQUELIZE
+const sequelize = createSequelize(DATABASE, USERNAME, PASSWORD, HOST, PORT);
 // IMPORT MODELS
 const Category = sequelize.import("categories", modelCategory);
 const Products = sequelize.import("products", modelProduct);

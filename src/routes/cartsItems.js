@@ -1,4 +1,4 @@
-module.exports = (app, CartsItems, Carts, Products) => {
+module.exports = (app, CartsItems) => {
   // Add product to cart
   app.post("/carts-items", async (req, res) => {
     const item = {
@@ -29,5 +29,19 @@ module.exports = (app, CartsItems, Carts, Products) => {
       }
     });
     res.status(200).json({ msg: "Success" });
+  });
+  app.put("/carts-items/update/:cartId/:productId", async (req, res) => {
+    const { cartId, productId } = req.params;
+    const { quantity } = req.body;
+    await CartsItems.update(
+      { quantity },
+      {
+        where: {
+          cartId,
+          productId
+        }
+      }
+    );
+    res.status(200).json({ msg: "update success" });
   });
 };

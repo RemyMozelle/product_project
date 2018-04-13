@@ -1,4 +1,4 @@
-module.exports = (app, Carts, Users, CartItem, Products, sequelize) => {
+module.exports = (app, Carts, Users, CartItem, Products) => {
   // Display the user cart
   app.get("/carts/:user_id", (req, res) => {
     Carts.findAll({
@@ -32,32 +32,5 @@ module.exports = (app, Carts, Users, CartItem, Products, sequelize) => {
     } else {
       res.status(404).json({ msg: "Cart not found" });
     }
-  });
-
-  app.get("/cart/item/:user_id", (req, res) => {
-    Carts.findOne({
-      include: [
-        {
-          model: Users,
-          where: {
-            id: req.params.user_id
-          },
-          include: [
-            {
-              model: CartItem
-            },
-            {
-              include: [
-                {
-                  model: Products
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }).then(item => {
-      res.json({ item });
-    });
   });
 };

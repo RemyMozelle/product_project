@@ -8,12 +8,14 @@ import modelProduct from "./models/Products";
 import modelCart from "./models/Carts";
 import modelUser from "./models/Users";
 import modelComment from "./models/Comments";
+import modelCartItem from "./models/CartsItems";
 // ROUTES
 import carts from "./routes/carts";
 import products from "./routes/products";
 import categories from "./routes/categories";
 import comments from "./routes/comments";
 import users from "./routes/users";
+import cartsItems from "./routes/cartsItems";
 // DOTENV
 config();
 // GLOBAL VARIABLES
@@ -30,6 +32,7 @@ const Products = sequelize.import("products", modelProduct);
 const Comments = sequelize.import("comments", modelComment);
 const Users = sequelize.import("users", modelUser);
 const Cart = sequelize.import("carts", modelCart);
+const CartItem = sequelize.import("comments", modelCartItem);
 // RELATIONSHIP
 Category.belongsTo(Category);
 Products.hasMany(Comments);
@@ -40,5 +43,6 @@ categories(app, Category);
 carts(app, Cart, Users);
 comments(app, Comments);
 users(app, Users);
+cartsItems(app, CartItem, Cart, Products);
 
 app.listen(3001);

@@ -8,13 +8,14 @@ import modelProduct from "./models/Products";
 import modelCart from "./models/Carts";
 import modelUser from "./models/Users";
 import modelComment from "./models/Comments";
-import modelCartItem from "./models/CartsItem";
+import modelCartItem from "./models/CartsItems";
 // ROUTES
 import carts from "./routes/carts";
 import products from "./routes/products";
 import categories from "./routes/categories";
 import comments from "./routes/comments";
 import users from "./routes/users";
+import cartsItems from "./routes/cartsItems";
 // DOTENV
 config();
 // GLOBAL VARIABLES
@@ -26,7 +27,7 @@ app.use(bodyParser.json({ extended: false }));
 // SEQUELIZE
 const sequelize = createSequelize(DATABASE, USERNAME, PASSWORD, HOST, PORT);
 // IMPORT MODELS
-const CartItem = sequelize.import("cartsItem", modelCartItem);
+const CartsItems = sequelize.import("cartsItem", modelCartItem);
 const Categories = sequelize.import("categories", modelCategory);
 const Products = sequelize.import("products", modelProduct);
 const Comments = sequelize.import("comments", modelComment);
@@ -37,11 +38,22 @@ Categories.belongsTo(Categories);
 Products.hasMany(Comments);
 Products.belongsTo(Categories);
 Carts.belongsTo(Users);
-Carts.hasMany(Products, {
-  foreignKey: "productId"
+Carts.belongsToMany(Products, {
+  through: {
+    model: CartsItems,
+    unique: false
+  },
+
+  foreignKey: "productId",
+  constraints: false
 });
-Products.hasMany(Carts, {
-  foreignKey: "cartId"
+Products.belongsToMany(Carts, {
+  through: {
+    model: CartsItems,
+    unique: false
+  },
+  foreignKey: "cartId",
+  constraints: false
 });
 
 products(app, Products, sequelize, Categories);
@@ -49,5 +61,6 @@ categories(app, Categories);
 carts(app, Carts, Users, Products);
 comments(app, Comments);
 users(app, Users);
+cartsItems(app, CartsItems, Carts, Products);
 
 app.listen(3001);

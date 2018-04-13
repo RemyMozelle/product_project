@@ -6,10 +6,10 @@ const modelComment = (sequelize, DataTypes) =>
     message: {
       type: DataTypes.INTEGER
     },
-    products_id: {
+    productId: {
       type: DataTypes.INTEGER
     },
-    users_id: {
+    userId: {
       type: DataTypes.INTEGER
     }
   });

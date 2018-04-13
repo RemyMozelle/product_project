@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 module.exports = (app, Products, sequelize, Categories) => {
   /**
    * Display all products
@@ -39,6 +38,9 @@ module.exports = (app, Products, sequelize, Categories) => {
     });
   });
 
+  /**
+   * Display all products from a particular category
+   */
   app.get("/category/:alias/products", (req, res) => {
     Products.findAll({
       include: [
@@ -53,6 +55,7 @@ module.exports = (app, Products, sequelize, Categories) => {
       res.json({ products });
     });
   });
+
   /**
    * Display sorted price products from a particular category by ascending
    */
@@ -71,24 +74,4 @@ module.exports = (app, Products, sequelize, Categories) => {
       res.json({ products });
     });
   });
-  app.get("/products/desc", (req, res) => {
-    Products.findAll({
-      order: [["price", "DESC"]]
-    }).then(product => {
-      res.json({ product });
-    });
-  });
-
-  /**
-   * Sort products by descending price
-   */
-  app.get("/products/asc", (req, res) => {
-    Products.findAll({
-      order: sequelize.col("price")
-    }).then(product => {
-      res.json({ product });
-    });
-  });
 };
-
-// ////// SQL REQUETE ////////

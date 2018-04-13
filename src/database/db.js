@@ -1,7 +1,7 @@
 import Sequelize from "sequelize";
 
-const createSequelize = (DATABASE, USERNAME, PASSWORD, HOST, PORT) => {
-  console.log(DATABASE, USERNAME, PASSWORD, HOST, PORT);
+const createSequelize = (DATABASE, USERNAME, PASSWORD, HOST) => {
+  console.log(DATABASE, USERNAME, PASSWORD, HOST);
   const sequelize = new Sequelize(DATABASE, USERNAME, PASSWORD, {
     host: HOST,
     dialect: "mysql",
@@ -10,7 +10,7 @@ const createSequelize = (DATABASE, USERNAME, PASSWORD, HOST, PORT) => {
       timestamps: false,
       freezeTableName: true
     },
-    port: PORT,
+
     pool: {
       max: 5,
       min: 0,

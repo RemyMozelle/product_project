@@ -1,13 +1,16 @@
 const modelCartItem = (sequelize, DataTypes) =>
-  sequelize.define("cartsItem", {
+  sequelize.define("carts_items", {
     cartId: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      msg: "Must be an integer number of an existing cart id"
     },
     productId: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      msg: "Must be an integer number of an existing product id"
     },
     quantity: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      msg: "Must be an integer number "
     }
   });
 

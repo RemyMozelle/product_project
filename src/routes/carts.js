@@ -1,4 +1,4 @@
-module.exports = (app, Carts, Users, CartItem, Products) => {
+module.exports = (app, Carts, Users, CartItem, Products, sequelize) => {
   // Display the user cart
   app.get("/carts/:user_id", (req, res) => {
     Carts.findAll({
@@ -14,16 +14,24 @@ module.exports = (app, Carts, Users, CartItem, Products) => {
       res.json({ cart });
     });
   });
-  // Add product to cart
-  app.post("/add-item/", (req, res) => {
-    const item = {
-      cartId: req.body.cartId,
-      productId: req.body.productId,
-      quantity: req.body.quantity
-    };
-    CartItem.create(item).then(cartItem => {
-      res.json({ cartItem });
+
+  app.get("/carts/:id/carts-items", async (req, res) => {
+    const { id } = req.params;
+    const cart = await Carts.findAll({
+      include: [
+        {
+          model: Products,
+          through: CartItem
+        }
+      ],
+      where: { id }
     });
+
+    if (cart) {
+      res.status(200).json({ cart });
+    } else {
+      res.status(404).json({ msg: "Cart not found" });
+    }
   });
 
   app.get("/cart/item/:user_id", (req, res) => {

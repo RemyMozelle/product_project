@@ -1,11 +1,11 @@
 -- PRODUCTS
-  -- Display all products
+  -- Display all products NOT OK
   SELECT `id`, `name`, `price`, `categories_id` FROM `products` AS `products`
-  -- Create a product
+  -- Create a product NOT OK
   INSERT INTO `products` (`id`,`name`,`price`,`categories_id`) VALUES (DEFAULT,'Collier en DIAMANT',100000,1);
-  -- Display all products by ascending
+  -- Display all products by ascending NOT OK
   SELECT `id`, `name`, `price`, `categories_id` FROM `products` AS `products` ORDER BY `price`;
-  -- Display all products by descending
+  -- Display all products by descending NOT OK
   SELECT `id`, `name`, `price`, `categories_id` FROM `products` AS `products` ORDER BY `products`.`price` DESC;
   -- Display all products from a particular category 
   SELECT `products`.`id`, `products`.`name`, `products`.`price`, `products`.`categoryId`, `category`.`id` AS `category.id`, `category`.`categoryId` AS `category.categoryId`, `category`.`name` AS `category.name`, `category`.`isActive` AS `category.isActive` FROM `products` AS `products` INNER JOIN `categories` AS `category` ON `products`.`categoryId` = `category`.`id` AND `category`.`name` = 'or';

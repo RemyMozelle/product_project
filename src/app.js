@@ -8,6 +8,7 @@ import modelProduct from "./models/Products";
 import modelCart from "./models/Carts";
 import modelUser from "./models/Users";
 import modelComment from "./models/Comments";
+import modelCartItem from "./models/Carts-item";
 // ROUTES
 import carts from "./routes/carts";
 import products from "./routes/products";
@@ -25,19 +26,38 @@ app.use(bodyParser.json({ extended: false }));
 // SEQUELIZE
 const sequelize = createSequelize(DATABASE, USERNAME, PASSWORD, HOST, PORT);
 // IMPORT MODELS
+const CartItem = sequelize.import("cartsItem", modelCartItem);
 const Category = sequelize.import("categories", modelCategory);
 const Products = sequelize.import("products", modelProduct);
 const Comments = sequelize.import("comments", modelComment);
 const Users = sequelize.import("users", modelUser);
-const Cart = sequelize.import("carts", modelCart);
+const Carts = sequelize.import("carts", modelCart);
 // RELATIONSHIP
 Category.belongsTo(Category);
 Products.hasMany(Comments);
 Products.belongsTo(Category);
+Carts.belongsTo(Users);
+Carts.belongsToMany(Products, {
+  through: {
+    model: CartItem,
+    unique: false
+  },
+
+  foreignKey: "productId",
+  constraints: false
+});
+Products.belongsToMany(Carts, {
+  through: {
+    model: CartItem,
+    unique: false
+  },
+  foreignKey: "cartId",
+  constraints: false
+});
 
 products(app, Products, sequelize, Category);
 categories(app, Category);
-carts(app, Cart, Users);
+carts(app, Carts, Users, Products);
 comments(app, Comments);
 users(app, Users);
 

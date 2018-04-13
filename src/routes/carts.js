@@ -1,9 +1,45 @@
-module.exports = (app, Cart, User) => {
+module.exports = (app, Carts, Users, CartItem, Products) => {
+  // Display the user cart
   app.get("/carts/:user_id", (req, res) => {
-    User.findOne({ where: { id: req.params.user_id } }).then(user => {
-      Cart.findOne({ where: { user_id: user.id } }).then(cart => {
-        res.json({ cart });
-      });
+    Carts.findAll({
+      include: [
+        {
+          model: Users,
+          where: {
+            id: req.params.user_id
+          }
+        }
+      ]
+    }).then(cart => {
+      res.json({ cart });
+    });
+  });
+  // Add product to cart
+  app.post("/add-item/", (req, res) => {
+    const item = {
+      cartId: req.body.cartId,
+      productId: req.body.productId,
+      quantity: req.body.quantity
+    };
+    CartItem.create(item).then(cartItem => {
+      res.json({ cartItem });
+    });
+  });
+
+  app.get("/cart", (req, res) => {
+    Carts.findOne({
+      include: [
+        {
+          model: CartItem,
+          include: [
+            {
+              model: Products
+            }
+          ]
+        }
+      ]
+    }).then(item => {
+      res.json({ item });
     });
   });
 };

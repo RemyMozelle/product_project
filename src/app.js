@@ -8,7 +8,7 @@ import modelProduct from "./models/Products";
 import modelCart from "./models/Carts";
 import modelUser from "./models/Users";
 import modelComment from "./models/Comments";
-import modelCartItem from "./models/Carts-item";
+import modelCartItem from "./models/CartsItem";
 // ROUTES
 import carts from "./routes/carts";
 import products from "./routes/products";
@@ -27,36 +27,25 @@ app.use(bodyParser.json({ extended: false }));
 const sequelize = createSequelize(DATABASE, USERNAME, PASSWORD, HOST, PORT);
 // IMPORT MODELS
 const CartItem = sequelize.import("cartsItem", modelCartItem);
-const Category = sequelize.import("categories", modelCategory);
+const Categories = sequelize.import("categories", modelCategory);
 const Products = sequelize.import("products", modelProduct);
 const Comments = sequelize.import("comments", modelComment);
 const Users = sequelize.import("users", modelUser);
 const Carts = sequelize.import("carts", modelCart);
 // RELATIONSHIP
-Category.belongsTo(Category);
+Categories.belongsTo(Categories);
 Products.hasMany(Comments);
-Products.belongsTo(Category);
+Products.belongsTo(Categories);
 Carts.belongsTo(Users);
-Carts.belongsToMany(Products, {
-  through: {
-    model: CartItem,
-    unique: false
-  },
-
-  foreignKey: "productId",
-  constraints: false
+Carts.hasMany(Products, {
+  foreignKey: "productId"
 });
-Products.belongsToMany(Carts, {
-  through: {
-    model: CartItem,
-    unique: false
-  },
-  foreignKey: "cartId",
-  constraints: false
+Products.hasMany(Carts, {
+  foreignKey: "cartId"
 });
 
-products(app, Products, sequelize, Category);
-categories(app, Category);
+products(app, Products, sequelize, Categories);
+categories(app, Categories);
 carts(app, Carts, Users, Products);
 comments(app, Comments);
 users(app, Users);

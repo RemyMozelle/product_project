@@ -26,14 +26,24 @@ module.exports = (app, Carts, Users, CartItem, Products) => {
     });
   });
 
-  app.get("/cart", (req, res) => {
+  app.get("/cart/item/:user_id", (req, res) => {
     Carts.findOne({
       include: [
         {
-          model: CartItem,
+          model: Users,
+          where: {
+            id: req.params.user_id
+          },
           include: [
             {
-              model: Products
+              model: CartItem
+            },
+            {
+              include: [
+                {
+                  model: Products
+                }
+              ]
             }
           ]
         }

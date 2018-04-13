@@ -1,6 +1,6 @@
 const modelCategory = (sequelize, DataTypes) =>
   sequelize.define("carts", {
-    user_id: {
+    userId: {
       type: DataTypes.INTEGER
     }
   });

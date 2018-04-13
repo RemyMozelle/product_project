@@ -3,7 +3,7 @@ module.exports = (app, Comments) => {
   app.get("/products/:products_id/comments", (req, res) => {
     Comments.findAll({
       where: {
-        products_id: req.params.products_id
+        productId: req.params.products_id
       }
     }).then(comment => res.json({ comment }));
   });
@@ -12,10 +12,10 @@ module.exports = (app, Comments) => {
     const comments = {
       date: req.body.date,
       message: req.body.message,
-      products_id: req.body.products_id,
-      users_id: req.body.users_id
+      productId: req.body.products_id,
+      userId: req.body.users_id
     };
-    Comments.create(comments).then(created => res.json(created));
+    Comments.create(comments).then(created => res.json({ created }));
   });
   // UPDATE A COMMENT
   app.put("/comments/:id", (req, res) => {
@@ -35,14 +35,14 @@ module.exports = (app, Comments) => {
       where: {
         id: req.params.id
       }
-    }).then(deleted => res.json(deleted));
+    }).then(deleted => res.json({ deleted }));
   });
   // DELETE ALL COMMENTS FOR 1 USER
   app.delete("/users/:id/comments", (req, res) => {
     Comments.destroy({
       where: {
-        users_id: req.params.id
+        userId: req.params.id
       }
-    }).then(deleteCommentForThisUser => res.json(deleteCommentForThisUser));
+    }).then(deleteCommentForThisUser => res.json({ deleteCommentForThisUser }));
   });
 };

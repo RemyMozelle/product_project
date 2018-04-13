@@ -27,22 +27,40 @@ app.use(bodyParser.json({ extended: false }));
 // SEQUELIZE
 const sequelize = createSequelize(DATABASE, USERNAME, PASSWORD, HOST, PORT);
 // IMPORT MODELS
-const Category = sequelize.import("categories", modelCategory);
+const CartsItems = sequelize.import("cartsItem", modelCartItem);
+const Categories = sequelize.import("categories", modelCategory);
 const Products = sequelize.import("products", modelProduct);
 const Comments = sequelize.import("comments", modelComment);
 const Users = sequelize.import("users", modelUser);
-const Cart = sequelize.import("carts", modelCart);
-const CartItem = sequelize.import("comments", modelCartItem);
+const Carts = sequelize.import("carts", modelCart);
 // RELATIONSHIP
-Category.belongsTo(Category);
+Categories.belongsTo(Categories);
 Products.hasMany(Comments);
-Products.belongsTo(Category);
+Products.belongsTo(Categories);
+Carts.belongsTo(Users);
+Carts.belongsToMany(Products, {
+  through: {
+    model: CartsItems,
+    unique: false
+  },
 
-products(app, Products, sequelize, Category);
-categories(app, Category);
-carts(app, Cart, Users);
+  foreignKey: "productId",
+  constraints: false
+});
+Products.belongsToMany(Carts, {
+  through: {
+    model: CartsItems,
+    unique: false
+  },
+  foreignKey: "cartId",
+  constraints: false
+});
+
+products(app, Products, sequelize, Categories);
+categories(app, Categories);
+carts(app, Carts, Users, Products);
 comments(app, Comments);
 users(app, Users);
-cartsItems(app, CartItem, Cart, Products);
+cartsItems(app, CartsItems, Carts, Products);
 
 app.listen(3001);

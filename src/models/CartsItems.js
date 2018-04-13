@@ -1,15 +1,12 @@
 const modelCartItem = (sequelize, DataTypes) =>
-  sequelize.define("comments", {
-    quantity: {
-      type: DataTypes.INTEGER
-    },
+  sequelize.define("cartsItem", {
     cartId: {
       type: DataTypes.INTEGER
     },
     productId: {
       type: DataTypes.INTEGER
     },
-    userId: {
+    quantity: {
       type: DataTypes.INTEGER
     }
   });
